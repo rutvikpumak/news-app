@@ -16,8 +16,11 @@ COPY . .
 # Build the React app
 RUN npm run build
 
-# Expose the port the app runs on
-EXPOSE 3000
+# Install serve globally
+RUN npm install -g serve
+
+# Expose the port the app runs on (serve uses port 5000 by default)
+EXPOSE 5000
 
 # Run the app
-CMD ["npx", "serve", "-s", "build"]
+CMD ["serve", "-s", "build", "-l", "5000"]

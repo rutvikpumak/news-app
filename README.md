@@ -17,6 +17,7 @@ This project is a news aggregator website built with React.ts. The application p
    The application uses the following data sources:
 
 ### NEWS API Used
+
 - NewsAPI
 - The Guardian API
 - New York Times API
@@ -134,109 +135,119 @@ news-aggregator/
 
 The Dockerfile defines the steps to build the Docker image for the application.
 
-### Use an official Node.js runtime as a parent image
+1. **Use an official Node.js runtime as a parent image**
+   `FROM node:18-alpine`
 
-`FROM node:18 AS build`
+2. **Set the working directory in the container**
+   `WORKDIR /app`
 
-### Set the working directory in the container
+3. **Copy package.json and package-lock.json files**
+   `COPY package*.json ./`
 
-`WORKDIR /app`
+4. **Install the dependencies**
+   `RUN npm install`
 
-### Copy package.json and package-lock.json files
+5. **Copy the rest of the application files**
+   `COPY . .`
 
-`COPY package*.json ./`
+6. **Build the React app**
+   `RUN npm run build`
 
-### Install the dependencies
+7. **Install serve globally**
+   `RUN npm install -g serve`
 
-`RUN npm install`
+8. **Expose port 5000 to access the app**
+   `EXPOSE 5000`
 
-### Copy the rest of the application files
+9. **Start the application using serve**
+   `CMD ["serve", "-s", "build", "-l", "5000"]`
 
-`COPY . .`
+## Docker Compose
 
-### Build the React app
+The docker-compose.yaml file simplifies running the application with proper port mapping and restart policies.
 
-`RUN npm run build`
-
-### Use a smaller image for serving the app
-
-`FROM nginx:alpine`
-
-### Copy the build files from the build stage to the Nginx HTML directory
-
-`COPY --from=build /app/build /usr/share/nginx/html`
-
-### Expose port 80 to access the app
-
-`EXPOSE 80`
-
-### Start Nginx server
-
-`CMD ["nginx", "-g", "daemon off;"]`
-
-## Docker Compose (Optional)
-
-If using Docker Compose, the docker-compose.yml file simplifies running the application.
-
-```
-version: '3.8'
+```yaml
+version: "3.8"
 
 services:
   web:
     build: .
+    container_name: news_aggregator_c
     ports:
-      - "80:80"
+      - "3000:5000"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
 ```
 
 ## Build and Run the Docker Container
 
-1. Build the Docker Image: Open a terminal in the root directory of your project and run:
+1. **Build the Docker Image**: Open a terminal in the root directory of your project and run:
 
-   `docker build -t news-aggregator .`
+   ```bash
+   docker build -t news-aggregator .
+   ```
 
-2. Run the Docker Container: To start a container from your image, run:
-   `docker run -p 80:80 news-aggregator`
+2. **Run the Docker Container**: To start a container from your image, run:
+
+   ```bash
+   docker run -p 3000:5000 news-aggregator
+   ```
 
    If using Docker Compose, you can build and run the container with:
-   `docker-compose up --build`
+
+   ```bash
+   docker-compose up --build
+   ```
 
 ### Project Setup and Dockerization
 
-1. Clone the Repository:
+1. **Clone the Repository**:
 
+   ```bash
    git clone https://github.com/yourusername/news-aggregator.git
    cd news-aggregator
+   ```
 
-2. Install Docker:
-
+2. **Install Docker**:
    Ensure Docker is installed on your machine. You can download it from Docker's official website.
 
-3. Build the Docker Image:
+3. **Build the Docker Image**:
 
-   `docker build -t news-aggregator .`
+   ```bash
+   docker build -t news-aggregator .
+   ```
 
-4. Run the Docker Container:
+4. **Run the Docker Container**:
 
-   `docker run -p 80:80 news-aggregator`
+   ```bash
+   docker run -p 3000:5000 news-aggregator
+   ```
 
    Alternatively, if you are using Docker Compose, run:
 
-   `docker-compose up --build`
+   ```bash
+   docker-compose up --build
+   ```
 
-5. Access the Application:
+5. **Access the Application**:
+   Open your web browser and go to http://localhost:3000 to see the application running.
 
-   Open your web browser and go to http://localhost to see the application running.
-
-6. Stopping the Container:
-
+6. **Stopping the Container**:
    If you started the container with Docker Compose, stop it using:
 
-   `docker-compose down`
+   ```bash
+   docker-compose down
+   ```
 
    If you started the container directly, find the container ID with:
 
-   `docker ps`
+   ```bash
+   docker ps
+   ```
 
    Then stop it with:
 
-   `docker stop <container_id>`
+   ```bash
+   docker stop <container_id>
+   ```
