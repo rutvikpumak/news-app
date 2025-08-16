@@ -1,0 +1,102 @@
+.navbar {
+  background: linear-gradient(
+    90deg,
+    rgb(41, 47, 51),
+    rgb(30, 34, 37)
+  ) !important;
+  padding: 15px 25px !important;
+  font-size: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nav-brand {
+  font-size: 23px;
+  margin-left: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+}
+
+.navbar .logo {
+  width: 45px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.nav-item {
+  margin-left: 10px;
+  transition: all 0.3s ease;
+}
+
+.nav-item:hover {
+  transform: translateY(-2px);
+  text-shadow: 0px 0px 8px rgba(255, 255, 255, 0.2);
+}
+
+.nav-link.active {
+  color: #00aaff !important;
+  font-weight: 600;
+}
+
+.close-btn {
+  color: #fff !important;
+  cursor: pointer;
+  margin-inline-end: 6px;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin: 0 10px;
+}
+
+.form-input {
+  border-radius: 13px 0 0 13px;
+  padding: 10px 14px;
+  background-color: #31383e;
+  color: #fff;
+  border: none;
+  font-size: 16px;
+}
+
+.search-btn {
+  background-color: #005abb !important;
+  color: white;
+  font-weight: 600;
+  border-radius: 0 13px 13px 0;
+  padding: 10px 18px;
+  font-size: 16px;
+}
+
+.search-btn:hover {
+  background-color: rgb(9, 71, 137) !important;
+}
+
+.date-picker {
+  margin-left: 10px;
+}
+
+.date-picker input {
+  border-radius: 13px;
+  padding: 10px;
+  background-color: #31383e;
+  color: #fff;
+  border: none;
+  font-size: 14px;
+}
+
+.dropdown-menu {
+  background-color: #1e2225;
+  border-radius: 8px;
+  padding: 5px 0;
+}
+
+.dropdown-item {
+  color: #ddd;
+}
+
+.dropdown-item:hover {
+  background-color: #2a2f33;
+  color: #fff;
+}
