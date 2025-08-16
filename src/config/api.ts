@@ -132,6 +132,6 @@ export const fetchGuardianArticles = async (
     "show-fields": "all",
   };
 
-  const data = await makeApiRequest(searchUrl, params);
+  const data = await makeApiRequest(url, params);
   return data ? normalizeArticles(data.response.results, "The Guardian") : [];
 };
