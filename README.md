@@ -16,6 +16,7 @@ This project is a news aggregator website built with React.ts. The application p
 4. Data Sources
    The application uses the following data sources:
 
+### NEWS API Used
 - NewsAPI
 - The Guardian API
 - New York Times API
